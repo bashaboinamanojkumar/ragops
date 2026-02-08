@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Menu, X, GitBranch } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ContactFormModal } from "@/components/contact-form-modal"
 
 const navLinks = [
   { label: "Features", href: "#features" },
@@ -14,6 +15,12 @@ const navLinks = [
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const openWaitlistModal = () => {
+    setModalOpen(true)
+    setMobileOpen(false)
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
@@ -37,12 +44,13 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-            Book Demo
-          </Button>
-          <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-            Start Free Trial
+        <div className="hidden items-center md:flex">
+          <Button
+            size="sm"
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+            onClick={openWaitlistModal}
+          >
+            Join Waitlist
           </Button>
         </div>
 
@@ -69,16 +77,19 @@ export function Navbar() {
               </a>
             ))}
             <div className="flex flex-col gap-3 pt-4 border-t border-border/50">
-              <Button variant="ghost" size="sm" className="justify-start text-muted-foreground">
-                Book Demo
-              </Button>
-              <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                Start Free Trial
+              <Button
+                size="sm"
+                className="bg-primary text-primary-foreground hover:bg-primary/90"
+                onClick={openWaitlistModal}
+              >
+                Join Waitlist
               </Button>
             </div>
           </div>
         </div>
       )}
+
+      <ContactFormModal open={modalOpen} onOpenChange={setModalOpen} />
     </header>
   )
 }

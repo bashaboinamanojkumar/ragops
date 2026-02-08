@@ -1,5 +1,9 @@
+"use client"
+
+import { useState } from "react"
 import { Check } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ContactFormModal } from "@/components/contact-form-modal"
 
 const tiers = [
   {
@@ -12,7 +16,7 @@ const tiers = [
       "Community support",
       "Basic analytics",
     ],
-    cta: "Get Started",
+    cta: "Join Waitlist",
     highlighted: false,
   },
   {
@@ -28,7 +32,7 @@ const tiers = [
       "Regression alerts",
       "Custom thresholds",
     ],
-    cta: "Start Free Trial",
+    cta: "Join Waitlist",
     highlighted: true,
   },
   {
@@ -43,12 +47,18 @@ const tiers = [
       "Dedicated support",
       "Custom integrations",
     ],
-    cta: "Contact Sales",
+    cta: "Join Waitlist",
     highlighted: false,
   },
 ]
 
 export function PricingSection() {
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const handleTierClick = () => {
+    setModalOpen(true)
+  }
+
   return (
     <section id="pricing" className="py-20 lg:py-32">
       <div className="mx-auto max-w-7xl px-6">
@@ -65,11 +75,10 @@ export function PricingSection() {
           {tiers.map((tier) => (
             <div
               key={tier.name}
-              className={`flex flex-col rounded-2xl border p-8 ${
-                tier.highlighted
+              className={`flex flex-col rounded-2xl border p-8 ${tier.highlighted
                   ? "border-primary/50 bg-primary/5"
                   : "border-border/50 bg-card"
-              }`}
+                }`}
             >
               {tier.highlighted && (
                 <div className="mb-4 inline-flex w-fit items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
@@ -95,11 +104,11 @@ export function PricingSection() {
               </ul>
 
               <Button
-                className={`mt-8 w-full ${
-                  tier.highlighted
+                onClick={handleTierClick}
+                className={`mt-8 w-full ${tier.highlighted
                     ? "bg-primary text-primary-foreground hover:bg-primary/90"
                     : "bg-secondary text-foreground hover:bg-secondary/80"
-                }`}
+                  }`}
               >
                 {tier.cta}
               </Button>
@@ -107,6 +116,8 @@ export function PricingSection() {
           ))}
         </div>
       </div>
+
+      <ContactFormModal open={modalOpen} onOpenChange={setModalOpen} />
     </section>
   )
 }

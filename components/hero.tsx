@@ -1,7 +1,9 @@
 "use client"
 
-import { ArrowRight, Play, FileText, Sparkles, Search, ShieldCheck, Rocket } from "lucide-react"
+import { useState } from "react"
+import { ArrowRight, FileText, Sparkles, Search, ShieldCheck, Rocket } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ContactFormModal } from "@/components/contact-form-modal"
 
 const pipelineSteps = [
   { icon: FileText, label: "Data Update", color: "text-blue-400" },
@@ -12,6 +14,12 @@ const pipelineSteps = [
 ]
 
 export function Hero() {
+  const [modalOpen, setModalOpen] = useState(false)
+
+  const openWaitlistModal = () => {
+    setModalOpen(true)
+  }
+
   return (
     <section className="relative overflow-hidden pt-32 pb-20 lg:pt-40 lg:pb-32">
       {/* Background glow */}
@@ -36,18 +44,18 @@ export function Hero() {
           </p>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 px-8">
-              Start Free Trial
+            <Button
+              size="lg"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 gap-2 px-8"
+              onClick={openWaitlistModal}
+            >
+              Join Waitlist
               <ArrowRight className="h-4 w-4" />
-            </Button>
-            <Button size="lg" variant="outline" className="gap-2 border-border text-foreground hover:bg-secondary bg-transparent">
-              <Play className="h-4 w-4" />
-              Watch Demo
             </Button>
           </div>
 
           <p className="mt-4 text-xs text-muted-foreground">
-            No credit card required &middot; 14-day free trial
+            Be the first to know when we launch
           </p>
         </div>
 
@@ -71,19 +79,9 @@ export function Hero() {
             </div>
           </div>
         </div>
-
-        {/* Trust */}
-        <div className="mx-auto mt-16 max-w-2xl text-center">
-          <p className="mb-6 text-xs font-medium uppercase tracking-widest text-muted-foreground">
-            Trusted by ML teams at
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {["Acme Corp", "Nebula AI", "DataForge", "VectorLabs", "Cortex"].map((name) => (
-              <span key={name} className="text-sm font-semibold text-muted-foreground/60">{name}</span>
-            ))}
-          </div>
-        </div>
       </div>
+
+      <ContactFormModal open={modalOpen} onOpenChange={setModalOpen} />
     </section>
   )
 }

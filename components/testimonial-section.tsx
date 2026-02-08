@@ -4,20 +4,14 @@ const testimonials = [
   {
     quote: "GoragOps caught a critical retrieval regression that would have caused hallucinations for thousands of users. It's now a non-negotiable part of our pipeline.",
     author: "Sarah Chen",
-    role: "ML Engineer",
-    company: "Nebula AI",
   },
   {
     quote: "We went from manual QA taking days to fully automated testing in minutes. The synthetic question generation is incredibly accurate.",
     author: "Marcus Rivera",
-    role: "Head of AI",
-    company: "DataForge",
   },
   {
     quote: "Before GoragOps, every data update was a gamble. Now we deploy with confidence knowing our retrieval quality is verified.",
     author: "Priya Patel",
-    role: "Staff Engineer",
-    company: "VectorLabs",
   },
 ]
 
@@ -48,10 +42,7 @@ export function TestimonialSection() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
                   {t.author.split(" ").map((n) => n[0]).join("")}
                 </div>
-                <div>
-                  <div className="text-sm font-semibold text-foreground">{t.author}</div>
-                  <div className="text-xs text-muted-foreground">{t.role} at {t.company}</div>
-                </div>
+                <div className="text-sm font-semibold text-foreground">{t.author}</div>
               </div>
             </div>
           ))}
@@ -60,3 +51,4 @@ export function TestimonialSection() {
     </section>
   )
 }
+
